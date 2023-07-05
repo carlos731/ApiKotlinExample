@@ -1,5 +1,6 @@
 package tech.developingdeveloper.movieapi.controller
 
+import io.swagger.v3.oas.annotations.Operation
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
@@ -11,11 +12,13 @@ class MovieResource(
     private val movieService: MovieService
 ) {
 
-    @PostMapping
+    @Operation(summary = "ADICIONAR", description = "Método para adicionar filmes")
+    @PostMapping()
     fun createMovie(@RequestBody movieDTO: MovieDTO): ResponseEntity<MovieDTO> {
         return ResponseEntity(movieService.createMovie(movieDTO), HttpStatus.CREATED)
     }
 
+    @Operation(summary = "/findAll", description = "Método Post para adicionar filmes")
     @GetMapping
     fun getMovies(): ResponseEntity<List<MovieDTO>> =
         ResponseEntity.ok(movieService.getMovies())
